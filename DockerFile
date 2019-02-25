@@ -1,0 +1,8 @@
+# escape=`
+ARG nanoServerVersion=1809
+FROM mcr.microsoft.com/powershell:nanoserver-$nanoServerVersion
+SHELL [ "pwsh", "-command" ]
+
+ENV prometheusVersion 2.7.1
+ENV prometheusUrl https://github.com/prometheus/prometheus/releases/download/v${prometheusVersion}/prometheus-${prometheusVersion}.windows-amd64.tar.gz
+RUN Invoke-WebRequest ($env:prometheusUrl) -UseBasicParsing -OutFile prometheus.tar.gz
