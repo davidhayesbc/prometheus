@@ -6,7 +6,7 @@ SHELL [ "pwsh", "-command" ]
 #Download an archive tool
 ENV arcVersion 3.1.1
 ENV arcUrl https://github.com/mholt/archiver/releases/download/v${arcVersion}/arc_windows_amd64.exe
-RUN md c:\temp
+RUN md c:\temp | Out-Null
 RUN Invoke-WebRequest ($env:arcUrl) -UseBasicParsing -OutFile c:\temp\arc.exe
 
 #Download Prometheus
