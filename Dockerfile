@@ -6,7 +6,8 @@ SHELL [ "pwsh", "-command" ]
 #Download an archive tool
 ENV arcVersion 3.1.1
 ENV arcUrl https://github.com/mholt/archiver/releases/download/v${arcVersion}/arc_windows_amd64.exe
-RUN Invoke-WebRequest ($env:arcUrl) -UseBasicParsing -OutFile arc.exe
+RUN md c:\temp
+RUN Invoke-WebRequest ($env:arcUrl) -UseBasicParsing -OutFile c:\temp\arc.exe
 
 #Download Prometheus
 ENV prometheusVersion 2.8.1
@@ -14,7 +15,7 @@ ENV prometheusUrl https://github.com/prometheus/prometheus/releases/download/v${
 RUN Invoke-WebRequest ($env:prometheusUrl) -UseBasicParsing -OutFile prometheus.tar.gz
 
 #extract the archive
-RUN .\arc.exe unarchive .\prometheus.tar.gz .\prometheus 
+RUN c:\temp\arc.exe unarchive .\prometheus.tar.gz .\prometheus 
 
 RUN mv .\prometheus\prometheus-$env:prometheusVersion.windows-amd64\ .\prometheus\prometheus
 
