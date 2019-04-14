@@ -12,16 +12,16 @@ RUN Invoke-WebRequest ($env:arcUrl) -UseBasicParsing -OutFile c:\temp\arc.exe
 #Download Prometheus
 ENV prometheusVersion 2.8.1
 ENV prometheusUrl https://github.com/prometheus/prometheus/releases/download/v${prometheusVersion}/prometheus-${prometheusVersion}.windows-amd64.tar.gz
-RUN Invoke-WebRequest ($env:prometheusUrl) -UseBasicParsing -OutFile prometheus.tar.gz
+RUN Invoke-WebRequest ($env:prometheusUrl) -UseBasicParsing -OutFile c:\temp\prometheus.tar.gz
 
 #extract the archive
-RUN c:\temp\arc.exe unarchive .\prometheus.tar.gz .\prometheus 
+RUN c:\temp\arc.exe unarchive c:\temp\prometheus.tar.gz c:\temp\prometheus 
 
-RUN mv .\prometheus\prometheus-$env:prometheusVersion.windows-amd64\ .\prometheus\prometheus
+RUN mv c:\temp\prometheus\prometheus-$env:prometheusVersion.windows-amd64\ c:\temp\prometheus\prometheus
 
 # Second build stage, copy the extracted files into a nanoserver container
 FROM mcr.microsoft.com/windows/nanoserver:$nanoServerVersion
-COPY --from=build /prometheus/prometheus/ /prometheus
+COPY --from=build c:/temp/prometheus/prometheus/ /prometheus
 
 #Expose a port from the container
 EXPOSE     9090
