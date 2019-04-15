@@ -22,6 +22,7 @@ RUN mv c:\temp\prometheus\prometheus-$env:prometheusVersion.windows-amd64\ c:\te
 # Second build stage, copy the extracted files into a nanoserver container
 FROM mcr.microsoft.com/windows/nanoserver:$nanoServerVersion
 COPY --from=build c:/temp/prometheus/prometheus/ /prometheus
+LABEL maintainer="david.hayes@spindriftpages.net"
 
 #Expose a port from the container
 EXPOSE     9090
