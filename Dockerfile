@@ -1,22 +1,23 @@
 # escape=`
 ARG nanoServerVersion=1809
 FROM mcr.microsoft.com/powershell:nanoserver-$nanoServerVersion as build
+ARG arcVersion=3.1.1
+ARG prometheusVersion
 SHELL [ "pwsh", "-command" ]
 
 #Download an archive tool
-ENV arcVersion 3.1.1
 ENV arcUrl https://github.com/mholt/archiver/releases/download/v${arcVersion}/arc_windows_amd64.exe
-RUN md c:\temp | Out-Null
+RUN md c:\temp
 RUN Invoke-WebRequest ($env:arcUrl) -UseBasicParsing -OutFile c:\temp\arc.exe
 
 #Download Prometheus
-ENV prometheusVersion 2.8.1
+ENV prometheusVersion $prometheusVersion
 ENV prometheusUrl https://github.com/prometheus/prometheus/releases/download/v${prometheusVersion}/prometheus-${prometheusVersion}.windows-amd64.tar.gz
 RUN Invoke-WebRequest ($env:prometheusUrl) -UseBasicParsing -OutFile c:\temp\prometheus.tar.gz
 
 #extract the archive
 RUN c:\temp\arc.exe unarchive c:\temp\prometheus.tar.gz c:\temp\prometheus 
-
+#Move the Prometheus Directory to take aout the version number
 RUN mv c:\temp\prometheus\prometheus-$env:prometheusVersion.windows-amd64\ c:\temp\prometheus\prometheus
 
 # Second build stage, copy the extracted files into a nanoserver container
