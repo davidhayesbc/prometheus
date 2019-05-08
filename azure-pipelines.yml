@@ -2,7 +2,7 @@ variables:
   dockerId: davidhayes  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
   imageName: prometheus  # Replace with the name of the image you want to publish
 jobs:
-  - job: 'Build Docker Image'
+  - job: 'BuildDockerImage'
     pool:
       vmImage: 'win1803'
     steps:
