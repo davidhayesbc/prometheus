@@ -10,4 +10,4 @@ jobs:
           command: 'build'
           Dockerfile: '**/Dockerfile'
           tags: 'nanoserver$(NanoServerVersion)'
-          arguments: 'nanoServerVersion=$(NanoServerVersion) prometheusVersion=$(PrometheusVersion)'
+          arguments: '--build-arg nanoServerVersion=$(NanoServerVersion) --build-arg prometheusVersion=$(PrometheusVersion)'
