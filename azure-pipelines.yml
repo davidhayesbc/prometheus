@@ -12,3 +12,10 @@ jobs:
           tags: |
             nanoserver$(NanoServerVersion)prometheus$(PrometheusVersion)
           arguments: '--build-arg nanoServerVersion=$(NanoServerVersion) --build-arg prometheusVersion=$(PrometheusVersion)'
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Docker'
+          repository: 'davidhayes/prometheus'
+          command: 'push'
+          tags: |
+            nanoserver$(NanoServerVersion)prometheus$(PrometheusVersion)
