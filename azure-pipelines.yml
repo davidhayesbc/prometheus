@@ -12,6 +12,5 @@ jobs:
           repository: 'davidhayes/prometheus'
           command: 'build'
           Dockerfile: '**/Dockerfile'
-          tags: 'nanoserver$(NanoServerVersion)
-            Prometheus$(PrometheusVersion)'
+          tags: 'nanoserver$(NanoServerVersion)'
           arguments: 'nanoServerVersion=$(NanoServerVersion) prometheusVersion=$(PrometheusVersion)'
