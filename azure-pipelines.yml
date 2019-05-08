@@ -1,0 +1,13 @@
+variables:
+  dockerId: davidhayes  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
+  imageName: prometheus  # Replace with the name of the image you want to publish
+
+steps:
+- script: |
+    docker login -u $(dockerId) -p $(pswd)
+    docker build -t $(dockerId)/$(imageName) --build-arg prometheusVersion=$(pver) --build-arg nanoServerVersion=1809 .
+    docker tag $(dockerId)/$(imageName) $(dockerId)/$(imageName):NanoServer1809-Prometheus$(pver)
+    docker push $(dockerId)/$(imageName)
+  env:
+    pswd: $(dockerPassword)
+    pver: $(prometheusVersion)
