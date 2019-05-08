@@ -8,7 +8,7 @@ jobs:
     steps:
     - script: |
         docker login -u $(dockerId) -p $(pswd)
-        docker build -t $(dockerId)/$(imageName) --build-arg prometheusVersion=$(pver) --build-arg nanoServerVersion=1809 .
+        docker build -t $(dockerId)/$(imageName) --build-arg prometheusVersion=2.9.2 --build-arg nanoServerVersion=1809 .
         docker tag $(dockerId)/$(imageName) $(dockerId)/$(imageName):NanoServer1809-Prometheus2.9.2
         docker push $(dockerId)/$(imageName)
       env:
