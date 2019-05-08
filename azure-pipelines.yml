@@ -9,5 +9,7 @@ jobs:
           repository: 'davidhayes/prometheus'
           command: 'build'
           Dockerfile: '**/Dockerfile'
-          tags: 'nanoserver$(NanoServerVersion)'
+          tags: |
+            'nanoserver$(NanoServerVersion)prometheusVersion$(PrometheusVersion)'
           arguments: '--build-arg nanoServerVersion=$(NanoServerVersion) --build-arg prometheusVersion=$(PrometheusVersion)'
+          
