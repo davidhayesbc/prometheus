@@ -9,12 +9,12 @@ ARG prometheusVersion
 #Download an archive tool
 ENV arcUrl https://github.com/mholt/archiver/releases/download/v${arcVersion}/arc_windows_amd64.exe
 RUN md c:\temp
-RUN curl https://github.com/mholt/archiver/releases/download/v3.1.1/arc_windows_amd64.exe -o c:\temp\arc.exe -L 
+RUN curl %arcUrl% -o c:\temp\arc.exe -L 
 
 #Download Prometheus
 ENV prometheusVersion $prometheusVersion
 ENV prometheusUrl https://github.com/prometheus/prometheus/releases/download/v${prometheusVersion}/prometheus-${prometheusVersion}.windows-amd64.tar.gz
-RUN curl ($env:prometheusUrl) -o c:\temp\prometheus.tar.gz -L
+RUN curl %prometheusUrl% -o c:\temp\prometheus.tar.gz -L
 
 #extract the archive
 RUN c:\temp\arc.exe unarchive c:\temp\prometheus.tar.gz c:\temp\prometheus 
