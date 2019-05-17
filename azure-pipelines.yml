@@ -21,6 +21,10 @@ jobs:
           tags: |
             nanoserver1809prometheus$(PrometheusVersion)
             latest
+  - job: 'BuildDockerImage'
+    pool:
+      name: 'default'
+    steps:
       - task: Docker@2
         inputs:
           containerRegistry: 'Docker'
