@@ -29,7 +29,7 @@ jobs:
           Dockerfile: '**/Dockerfile'
           tags: |
             nanoserver10.0.18362.113prometheus$(PrometheusVersion)
-          arguments: '--build-arg nanoServerVersion=10.0.18362.113 --build-arg prometheusVersion=$(PrometheusVersion)'
+          arguments: '--build-arg nanoServerVersion=10.0.18362.113 --build-arg prometheusVersion=$(PrometheusVersion) --build-arg baseImage=mcr.microsoft.com/windows/nanoserver/insider'
       - task: Docker@2
         inputs:
           containerRegistry: 'Docker'
