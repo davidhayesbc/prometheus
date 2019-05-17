@@ -1,6 +1,7 @@
 # escape=`
 ARG nanoServerVersion=1809
-FROM mcr.microsoft.com/powershell:nanoserver-$nanoServerVersion as build
+ARG baseImage=mcr.microsoft.com/windows/nanoserver
+FROM mcr.microsoft.com/powershell:nanoserver-1809 as build
 ARG arcVersion=3.1.1
 ARG prometheusVersion
 SHELL [ "pwsh", "-command" ]
@@ -21,7 +22,7 @@ RUN c:\temp\arc.exe unarchive c:\temp\prometheus.tar.gz c:\temp\prometheus
 RUN mv c:\temp\prometheus\prometheus-$env:prometheusVersion.windows-amd64\ c:\temp\prometheus\prometheus
 
 # Second build stage, copy the extracted files into a nanoserver container
-FROM mcr.microsoft.com/windows/nanoserver:$nanoServerVersion
+FROM $baseImage:$nanoServerVersion
 COPY --from=build c:/temp/prometheus/prometheus/ /prometheus
 LABEL maintainer="david.hayes@spindriftpages.net"
 
