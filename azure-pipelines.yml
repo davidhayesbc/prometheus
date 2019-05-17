@@ -10,14 +10,30 @@ jobs:
           command: 'build'
           Dockerfile: '**/Dockerfile'
           tags: |
-            nanoserver$(NanoServerVersion)prometheus$(PrometheusVersion)
+            nanoserver1809prometheus$(PrometheusVersion)
             latest
-          arguments: '--build-arg nanoServerVersion=$(NanoServerVersion) --build-arg prometheusVersion=$(PrometheusVersion)'
+          arguments: '--build-arg nanoServerVersion=1809 --build-arg prometheusVersion=$(PrometheusVersion)'
       - task: Docker@2
         inputs:
           containerRegistry: 'Docker'
           repository: 'davidhayes/prometheus'
           command: 'push'
           tags: |
-            nanoserver$(NanoServerVersion)prometheus$(PrometheusVersion)
+            nanoserver1809prometheus$(PrometheusVersion)
             latest
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Docker'
+          repository: 'davidhayes/prometheus'
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
+          tags: |
+            nanoserver10.0.18362.113prometheus$(PrometheusVersion)
+          arguments: '--build-arg nanoServerVersion=10.0.18362.113 --build-arg prometheusVersion=$(PrometheusVersion)'
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Docker'
+          repository: 'davidhayes/prometheus'
+          command: 'push'
+          tags: |
+            nanoserver10.0.18362.113prometheus$(PrometheusVersion)
